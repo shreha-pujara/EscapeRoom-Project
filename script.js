@@ -32,7 +32,6 @@ document.getElementById("player").innerText =
 
 loadLevel();
 
-// LOAD LEVEL
 function loadLevel(){
   document.getElementById("question").innerText = questions[level-1];
   document.getElementById("level").innerText = "Level "+level;
@@ -42,7 +41,6 @@ function loadLevel(){
   startTimer();
 }
 
-// TIMER
 function startTimer(){
   clearInterval(timer);
   time = levelTime[level-1];
@@ -58,7 +56,6 @@ function startTimer(){
   },1000);
 }
 
-// DECODE
 function decodeText(text){
   let result="";
   for(let ch of text){
@@ -69,7 +66,6 @@ function decodeText(text){
   return result;
 }
 
-// CHECK ANSWER
 function checkAnswer(){
   let ans=document.getElementById("answer").value.toLowerCase().trim();
   let decoded=decodeText(ans);
@@ -84,7 +80,6 @@ function checkAnswer(){
   }
 }
 
-// ✅ FIXED HINT FUNCTION
 function useHint(){
   if(hintsLeft > 0){
 
@@ -107,7 +102,7 @@ function useHint(){
   }
 }
 
-// EFFECTS
+
 function successEffect(){
   document.getElementById("correctSound").play();
   document.getElementById("happyFace").style.display="flex";
@@ -136,7 +131,7 @@ function failEffect(msg){
   },3000);
 }
 
-// CONFETTI
+
 function showConfetti(){
   let c=document.getElementById("confetti");
   let ctx=c.getContext("2d");
