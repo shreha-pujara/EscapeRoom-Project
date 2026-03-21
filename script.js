@@ -2,7 +2,9 @@ let level = 1;
 let score = 0;
 let timer;
 let time;
+let hintsLeft = 3;
 
+// TIMER PER LEVEL
 let levelTime = [
   30,30,30,30,30,
   40,40,40,40,40,
@@ -36,12 +38,18 @@ let questions = [
 "Level 20: (20÷2)×(5+5)-10"
 ];
 
-
 let answers = [
 "silence","0","triangle","piano","10",
 "21","phone","reward","knife","12",
 "240","9","light","clock","45",
 "243","echo","bank","triangle12","90"
+];
+
+let hintsData = [
+"Think silence","Division concept","Triangle spelling","Musical instrument","Simple equation",
+"Add pattern","Communication device","Reverse word","Cutting tool","Square root",
+"Multiply pattern","Divide equation","Opposite meaning","Time concept","Percentage",
+"Power of 3","Sound reflection","Financial place","Combine answers","BODMAS"
 ];
 
 document.getElementById("player").innerText =
@@ -53,6 +61,7 @@ function loadLevel(){
   document.getElementById("question").innerText = questions[level-1];
   document.getElementById("level").innerText = "Level: "+level;
   document.getElementById("score").innerText = "Score: "+score;
+  document.getElementById("hintCount").innerText = "Hints Left: " + hintsLeft;
   startTimer();
 }
 
@@ -71,32 +80,6 @@ function startTimer(){
     }
   },1000);
 }
-let hintsData = [
-"Think silence",
-"Division concept",
-"Triangle spelling",
-"Musical instrument",
-"Simple equation",
-
-"Add pattern",
-"Communication device",
-"Reverse word",
-"Cutting tool",
-"Square root",
-
-"Multiply pattern",
-"Divide equation",
-"Opposite meaning",
-"Postal item",
-"Percentage",
-
-"Power of 3",
-"Sound reflection",
-"Financial place",
-"Combine answers",
-"BODMAS"
-];
-
 
 function checkAnswer(){
   let ans = document.getElementById("answer").value.toLowerCase().trim();
@@ -156,7 +139,6 @@ function showConfetti(){
     ctx.clearRect(0,0,c.width,c.height);
   },3000);
 }
-
 function showPopup(msg){
   document.getElementById("popup").style.display="block";
   document.getElementById("popupText").innerText=msg;
@@ -178,7 +160,20 @@ function reset(){
   document.getElementById("answer").value="";
   loadLevel();
 }
-
 function goHome(){
   window.location.href="index.html";
+}
+function useHint(){
+  if(hintsLeft > 0){
+    alert("💡 Hint: " + hintsData[level-1]);
+    hintsLeft--;
+    document.getElementById("hintCount").innerText =
+    "Hints Left: " + hintsLeft;
+
+    score -= 20;
+    document.getElementById("score").innerText = "Score: "+score;
+
+  } else {
+    alert("❌ No hints left!");
+  }
 }
