@@ -8,6 +8,10 @@
 <body>
 <div class="container">
 <h2 id="welcome"></h2>
+  <script>
+document.getElementById("welcome").innerText =
+"Welcome " + (localStorage.getItem("player") || "Guest");
+</script>
 <h1>Choose Level</h1>
 
 <button onclick="startGame()">▶ Start Game</button>
