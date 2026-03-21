@@ -1,15 +1,26 @@
 body {
   margin:0;
-  font-family: Arial;
   background:#0D0D0D;
   color:white;
   text-align:center;
+  font-family:Arial;
 }
 
 .container {
   margin-top:80px;
 }
 
+input {
+  padding:10px;
+  width:200px;
+}
+
+button {
+  padding:10px;
+  margin:5px;
+}
+
+/* popup */
 #popup {
   display:none;
   position:fixed;
@@ -21,6 +32,7 @@ body {
   border-radius:10px;
 }
 
+/* sad */
 #sadFace {
   display:none;
   position:fixed;
@@ -39,8 +51,6 @@ body {
 
 #confetti {
   position:fixed;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
 }
