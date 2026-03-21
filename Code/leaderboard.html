@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+  <h1>🏆 Leaderboard</h1>
+
+  <ul id="board"></ul>
+
+  <br>
+
+  <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<script>
+let scores = JSON.parse(localStorage.getItem("leaderboard")) || [];
+let list = document.getElementById("board");
+if(scores.length === 0){
+  let li = document.createElement("li");
+  li.innerText = "No scores yet!";
+  list.appendChild(li);
+}
+else 
+{
+  scores.sort((a, b) => b.score - a.score);
+  scores.forEach((player, index) => 
+  {
+    let li = document.createElement("li");
+    li.innerText = (index + 1) + ". " + player.name + " - " + player.score;
+    list.appendChild(li);
+  });
+}
+function goBack()
+{
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
