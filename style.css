@@ -10,16 +10,10 @@ body {
   margin-top:80px;
 }
 
-input {
-  padding:10px;
-  width:220px;
+.hideUI {
+  display:none;
 }
 
-button {
-  padding:10px;
-  margin:5px;
-  cursor:pointer;
-}
 #happyFace, #sadFace {
   position:fixed;
   top:0;
@@ -29,8 +23,8 @@ button {
   display:none;
   justify-content:center;
   align-items:center;
-  font-size:80px;
-  background:rgba(0,0,0,0.9);
+  font-size:90px;
+  background:black;
   z-index:999;
 }
 
@@ -44,7 +38,6 @@ button {
   z-index:998;
 }
 
-/* POPUP */
 #popup {
   display:none;
   position:fixed;
