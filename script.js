@@ -35,10 +35,9 @@ let timer = setInterval(() =>
     document.getElementById("timer").style.color = "red";
   }
 
-  // Time up
   if (time <= 0) {
     clearInterval(timer);
-    endGame("❌ Time's Up! You Failed!");
+  endGame("⏳ Time's Up!");
   }
 }, 1000);
 function checkAnswer() {
