@@ -4,41 +4,79 @@
   <title>Leaderboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
   <h1>🏆 Leaderboard</h1>
 
-  <ul id="board"></ul>
+  <!-- TABLE STRUCTURE -->
+  <table id="leaderboardTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody id="board">
+      <!-- Data will come here -->
+    </tbody>
+  </table>
 
   <br>
 
-  <button onclick="goBack()">⬅ Back</button>
+  <!-- ACTION BUTTONS -->
+  <button onclick="goHome()">🏠 Home</button>
+  <button onclick="clearBoard()">🗑 Clear</button>
 </div>
 
 <script>
+
+// GET DATA FROM LOCAL STORAGE
 let scores = JSON.parse(localStorage.getItem("leaderboard")) || [];
-let list = document.getElementById("board");
+
+// SORT HIGH TO LOW
+scores.sort((a, b) => b.score - a.score);
+
+let board = document.getElementById("board");
+
+// DISPLAY DATA
 if(scores.length === 0){
-  let li = document.createElement("li");
-  li.innerText = "No scores yet!";
-  list.appendChild(li);
-}
-else 
-{
-  scores.sort((a, b) => b.score - a.score);
-  scores.forEach((player, index) => 
-  {
-    let li = document.createElement("li");
-    li.innerText = (index + 1) + ". " + player.name + " - " + player.score;
-    list.appendChild(li);
+  board.innerHTML = `<tr><td colspan="3">No scores yet</td></tr>`;
+} else {
+
+  scores.forEach((player, index) => {
+
+    let row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>👤 ${player.name}</td>
+      <td>⭐ ${player.score}</td>
+    `;
+
+    // Highlight Top 3
+    if(index === 0) row.style.color = "gold";
+    if(index === 1) row.style.color = "silver";
+    if(index === 2) row.style.color = "#cd7f32";
+
+    board.appendChild(row);
   });
 }
-function goBack()
-{
-  window.location.href = "dashboard.html";
+
+// HOME BUTTON
+function goHome(){
+  window.location.href = "index.html";
 }
+
+// CLEAR LEADERBOARD
+function clearBoard(){
+  if(confirm("Are you sure you want to clear leaderboard?")){
+    localStorage.removeItem("leaderboard");
+    location.reload();
+  }
+}
+
 </script>
 
 </body>
