@@ -1,181 +1,159 @@
 let level = 1;
 let score = 0;
-let time = 120;
-let hints = 5;
+let timer;
+let time;
 
-// QUESTIONS (20 LEVELS)
+let levelTime = [
+  30,30,30,30,30,
+  40,40,40,40,40,
+  50,50,50,50,50,
+  60,60,60,60,60
+];
+
 let questions = [
+"Level 1: What disappears when you say its name?",
+"Level 2: What number divided infinitely becomes 0?",
+"Level 3: Unscramble → TRIANGEL",
+"Level 4: Keys but no locks, produces music?",
+"Level 5: Double me +10 =30?",
 
-  // 🟢 EASY (1–5)
-  "Riddle: What has hands but cannot clap?",
-  "Math: What is 10 + 5?",
-  "Word: Unscramble → 'TAC'",
-  "Color: What color is the sky on a clear day?",
-  "Count: How many days are there in a week?",
+"Level 6: 1,3,6,10,15,?",
+"Level 7: Ring but no finger?",
+"Level 8: Reverse → drawer",
+"Level 9: Gets sharper with use?",
+"Level 10: √144?",
 
-  // 🟡 MEDIUM (6–10)
-  "Pattern: 2, 4, 6, 8, ?",
-  "Logic: What has a face and two hands but no arms or legs?",
-  "Math: What is 12 × 2?",
-  "Reverse: 'god'",
-  "Riddle: What has a neck but no head?",
+"Level 11: 2,4,12,48,?",
+"Level 12: 5x=45",
+"Level 13: Fills room but no space?",
+"Level 14: Always running but never moves?",
+"Level 15: 15% of 300?",
 
-  // 🔴 HARD (11–15)
-  "Pattern: 1, 3, 6, 10, ?",
-  "Math Logic: If x + 3 = 9, what is x?",
-  "Word: What is the opposite of 'hot'?",
-  "Riddle: What gets wetter the more it dries?",
-  "Number: What is half of 50?",
-
-  // ⚫ EXTREME (16–20)
-  "Logic: I am always in front of you but can’t be seen. What am I?",
-  "Math: What is 15 × 3?",
-  "Riddle: What has one eye but cannot see?",
-  "Final Combo: Combine answer of level 1 + level 3",
-  "Final Boss: What is (5 + 5) × 2?"
+"Level 16: 3,9,27,81,?",
+"Level 17: Speak without mouth?",
+"Level 18: Branches but no tree?",
+"Level 19: Combine level3 + level10",
+"Level 20: (20÷2)×(5+5)-10"
 ];
 
-// ANSWERS
+
 let answers = [
-
-  // EASY
-  "clock",
-  "15",
-  "cat",
-  "blue",
-  "7",
-
-  // MEDIUM
-  "10",
-  "clock",
-  "24",
-  "dog",
-  "bottle",
-
-  // HARD
-  "15",
-  "6",
-  "cold",
-  "towel",
-  "25",
-
-  // EXTREME
-  "future",
-  "45",
-  "needle",
-  "clockcat",
-  "20"
+"silence","0","triangle","piano","10",
+"21","phone","reward","knife","12",
+"240","9","light","clock","45",
+"243","echo","bank","triangle12","90"
 ];
 
-let hintsData = [
+document.getElementById("player").innerText =
+"Player: " + (localStorage.getItem("player") || "Guest");
 
-  // EASY
-  "Look at a wall clock",
-  "Basic addition",
-  "It's an animal",
-  "Look up ☁️",
-  "Think calendar",
+loadLevel();
 
-  // MEDIUM
-  "Add 2 each time",
-  "Used to tell time",
-  "Multiply",
-  "Reverse the word",
-  "Used to hold liquid",
+function loadLevel(){
+  document.getElementById("question").innerText = questions[level-1];
+  document.getElementById("level").innerText = "Level: "+level;
+  document.getElementById("score").innerText = "Score: "+score;
+  startTimer();
+}
 
-  // HARD
-  "Add increasing numbers",
-  "Solve equation",
-  "Opposite meaning",
-  "Used after bath",
-  "Divide by 2",
-
-  // EXTREME
-  "Think about time",
-  "Multiply",
-  "Used for stitching",
-  "Use previous answers",
-  "Solve step by step"
-];
-
-let playerName = localStorage.getItem("player") || "Guest";
-document.getElementById("player").innerText = "Player: " + playerName;
-
-// INITIAL UI
-document.getElementById("question").innerText = questions[0];
-document.getElementById("level").innerText = "Level: 1 (Easy)";
-document.getElementById("score").innerText = "Score: 0";
-
-let timer = setInterval(() => {
-  time--;
+function startTimer(){
+  clearInterval(timer);
+  time = levelTime[level-1];
   document.getElementById("timer").innerText = time;
 
-  if (time <= 10) {
-    document.getElementById("timer").style.color = "red";
-  }
+  timer = setInterval(()=>{
+    time--;
+    document.getElementById("timer").innerText = time;
 
-  if (time <= 0) {
-    clearInterval(timer);
-    endGame("⏳ Time's Up!");
-  }
-}, 1000);
+    if(time<=0){
+      clearInterval(timer);
+      failEffect("⏳ Time Up!");
+    }
+  },1000);
+}
 
-function checkAnswer() {
+// Check
+function checkAnswer(){
   let ans = document.getElementById("answer").value.toLowerCase().trim();
 
-  if (ans === answers[level - 1]) {
-    if(level <= 5) score += 20;
-    else if(level <= 10) score += 40;
-    else if(level <= 15) score += 60;
-    else score += 80;
-
-    level++;
-
-    document.getElementById("answer").value = "";
-
-    if (level > questions.length) {
-      endGame("🎉 You Escaped All Levels!");
-      return;
-    }
-
-    let type =
-      level <= 5 ? "Easy" :
-      level <= 10 ? "Medium" :
-      level <= 15 ? "Hard" : "Extreme";
-
-    document.getElementById("question").innerText = questions[level - 1];
-    document.getElementById("level").innerText = "Level: " + level + " (" + type + ")";
-    document.getElementById("score").innerText = "Score: " + score;
-
-    alert("✅ Correct!");
+  if(ans === answers[level-1]){
+    clearInterval(timer);
+    score += 100;
+    successEffect();
   } else {
-    alert("❌ Wrong Answer");
+    clearInterval(timer);
+    failEffect("❌ Wrong");
   }
 }
 
-function useHint() {
-  if (hints > 0) {
-    alert("💡 Hint: " + hintsData[level - 1]);
-    hints--;
-  } else {
-    alert("❌ No hints left!");
-  }
+function successEffect(){
+  document.getElementById("correctSound").play();
+  showConfetti();
+
+  setTimeout(()=>{
+    showPopup("🎉 Correct!");
+  },3000);
 }
 
-function endGame(message) {
-  clearInterval(timer);
+function failEffect(msg){
+  document.getElementById("wrongSound").play();
+  let sad = document.getElementById("sadFace");
+  sad.style.display="block";
 
-  localStorage.setItem("score", score);
-  localStorage.setItem("result", message);
+  setTimeout(()=>{
+    sad.style.display="none";
+    showPopup(msg);
+  },3000);
+}
 
-  let board = JSON.parse(localStorage.getItem("leaderboard")) || [];
+function showConfetti(){
+  let c=document.getElementById("confetti");
+  let ctx=c.getContext("2d");
+  c.width=window.innerWidth;
+  c.height=window.innerHeight;
 
-  board.push({
-    name: playerName,
-    score: score
-  });
+  let arr=[];
+  for(let i=0;i<100;i++){
+    arr.push({x:Math.random()*c.width,y:Math.random()*c.height});
+  }
 
-  localStorage.setItem("leaderboard", JSON.stringify(board));
+  let anim=setInterval(()=>{
+    ctx.clearRect(0,0,c.width,c.height);
+    arr.forEach(p=>{
+      p.y+=3;
+      ctx.fillStyle="cyan";
+      ctx.fillRect(p.x,p.y,5,5);
+    });
+  },20);
 
-  window.location.href = "result.html";
+  setTimeout(()=>{
+    clearInterval(anim);
+    ctx.clearRect(0,0,c.width,c.height);
+  },3000);
+}
+
+function showPopup(msg){
+  document.getElementById("popup").style.display="block";
+  document.getElementById("popupText").innerText=msg;
+}
+
+function nextLevel(){
+  level++;
+  if(level>questions.length){
+    window.location.href="result.html";
+    return;
+  }
+  reset();
+}
+function replayLevel(){
+  reset();
+}
+function reset(){
+  document.getElementById("popup").style.display="none";
+  document.getElementById("answer").value="";
+  loadLevel();
+}
+
+function goHome(){
+  window.location.href="index.html";
 }
