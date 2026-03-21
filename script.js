@@ -87,6 +87,43 @@ return result;
 function checkAnswer(){
 let ans=document.getElementById("answer").value.toLowerCase().trim();
 let decoded=decodeText(ans);
+  let hintsLeft = 3;
+
+let hintsData = [
+"Shift each letter back by 1",
+"Think silence",
+"Rearrange letters",
+"Musical instrument",
+"Simple math",
+"Pattern addition",
+"Used for calling",
+"Reverse the word",
+"Sharp object",
+"Square root",
+"Multiply pattern",
+"Divide equation",
+"Opposite meaning",
+"Time device",
+"Percentage",
+"Power of 3",
+"Sound reflection",
+"Money place",
+"Combine answers",
+"Use BODMAS"
+];
+
+function useHint(){
+  if(hintsLeft > 0){
+    alert("💡 Hint: " + hintsData[level-1]);
+    hintsLeft--;
+
+    document.getElementById("hintCount").innerText =
+      "Hints Left: " + hintsLeft;
+
+  } else {
+    alert("❌ No hints left!");
+  }
+}
 
 if(ans===answers[level-1]||decoded===answers[level-1]){
 clearInterval(timer);
