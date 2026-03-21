@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Escape Room Game</title>
+  <title>Escape Room</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-  <h2 id="player">Player: </h2>
+  <h2 id="player"></h2>
+  <p id="timer"></p>
+  <h3 id="question"></h3>
 
-  <p id="timer">60</p>
+  <input type="text" id="answer" placeholder="Enter answer">
 
-  <h3 id="question">Loading puzzle...</h3>
+<br><br>
 
-  <input type="text" id="answer" placeholder="Enter your answer">
+<button onclick="checkAnswer()">Submit</button>
+<button onclick="useHint()">💡 Hint</button>
+
+<p id="hintCount">Hints Left: 3</p>
   
-  <br><br>
-
-  <button onclick="checkAnswer()">Submit</button>
   <button onclick="useHint()">💡 Hint</button>
 
-  <p id="level">Level: 1</p>
-  <p id="score">Score: 0</p>
+  <p id="hintCount">Hints Left: 3</p>
+  <p id="level"></p>
+  <p id="score"></p>
+</div>
+
+<div id="happyFace">😄</div>
+<div id="sadFace">😢</div>
+<canvas id="confetti"></canvas>
+<audio id="correctSound" src="correct.mp3"></audio>
+<audio id="wrongSound" src="wrong.mp3"></audio>
+<div id="popup">
+  <h2 id="popupText"></h2>
+  <button onclick="nextLevel()">▶ Next</button>
+  <button onclick="replayLevel()">🔄 Replay</button>
+  <button onclick="goHome()">🏠 Home</button>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
