@@ -17,15 +17,14 @@
 </div>
 
 <script>
-  // Get values safely
   let score = localStorage.getItem("score") || 0;
   let result = localStorage.getItem("result") || "Game Finished";
 
   document.getElementById("finalScore").innerText = "Score: " + score;
   document.getElementById("resultText").innerText = result;
 
-  function restart(){
-    // Clear game data (optional but professional)
+  function restart()
+  {
     localStorage.removeItem("score");
     localStorage.removeItem("result");
 
