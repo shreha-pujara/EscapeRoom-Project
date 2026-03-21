@@ -20,8 +20,6 @@ button {
   margin:5px;
   cursor:pointer;
 }
-
-/* FULL SCREEN EFFECTS */
 #happyFace, #sadFace {
   position:fixed;
   top:0;
