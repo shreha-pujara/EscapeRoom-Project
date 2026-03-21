@@ -4,37 +4,13 @@ let timer;
 let time;
 let hintsLeft = 3;
 
-let levelTime = [
-30,30,30,30,30,
-40,40,40,40,40,
-50,50,50,50,50,
-60,60,60,60,60
-];
+let levelTime = Array(20).fill(60);
 
 let questions = [
-"Decode: Uifsf jt b tfdsfu",
-"Disappear when spoken?",
-"Unscramble TRIANGEL",
-"Keys but no locks?",
-"Double me +10=30?",
-
-"1,3,6,10,15,?",
-"Ring but no finger?",
-"Reverse drawer",
-"Gets sharper?",
-"√144?",
-
-"2,4,12,48,?",
-"5x=45",
-"Fills room no space?",
-"Always running?",
-"15% of 300?",
-
-"3,9,27,81,?",
-"Speak without mouth?",
-"Branches no tree?",
-"Combine 3+10",
-"(20÷2)×(5+5)-10"
+"Decode: Uifsf jt b tfdsfu","Disappear when spoken?","Unscramble TRIANGEL","Keys but no locks?","Double me +10=30?",
+"1,3,6,10,15,?","Ring but no finger?","Reverse drawer","Gets sharper?","√144?",
+"2,4,12,48,?","5x=45","Fills room no space?","Always running?","15% of 300?",
+"3,9,27,81,?","Speak without mouth?","Branches no tree?","Combine 3+10","(20÷2)×(5+5)-10"
 ];
 
 let answers = [
@@ -44,7 +20,12 @@ let answers = [
 "243","echo","bank","triangle12","90"
 ];
 
-let hintsData = ["Shift letters","Think silence","Spell","Music","Equation"];
+let hintsData = [
+"Shift letters","Think silence","Spell","Music","Equation",
+"Add pattern","Phone","Reverse","Knife","Square root",
+"Multiply","Divide","Light","Clock","Percentage",
+"Power of 3","Echo","Bank","Combine","BODMAS"
+];
 
 document.getElementById("player").innerText =
 "Player: " + (localStorage.getItem("player") || "Guest");
@@ -56,6 +37,7 @@ document.querySelector(".container").style.display="block";
 document.getElementById("question").innerText = questions[level-1];
 document.getElementById("level").innerText = "Level "+level;
 document.getElementById("score").innerText = "Score "+score;
+document.getElementById("answer").value="";
 startTimer();
 }
 
@@ -98,6 +80,17 @@ failEffect("❌ Wrong");
 }
 }
 
+function useHint(){
+if(hintsLeft>0){
+alert("💡 Hint: "+hintsData[level-1]);
+hintsLeft--;
+document.getElementById("hintCount").innerText =
+"Hints Left: "+hintsLeft;
+}else{
+alert("❌ No hints left!");
+}
+}
+
 function hideUI(){
 document.querySelector(".container").style.display="none";
 }
@@ -117,7 +110,6 @@ showConfetti();
 setTimeout(()=>{
 happy.style.display="none";
 confetti.style.display="none";
-
 showPopup("🎉 Correct!");
 showButtons(true);
 },3000);
@@ -132,20 +124,14 @@ sad.style.display="flex";
 
 setTimeout(()=>{
 sad.style.display="none";
-
 showPopup(msg);
 showButtons(false);
 },3000);
 }
 
 function showButtons(success){
-let next=document.querySelector("#popup button[onclick='nextLevel()']");
-let replay=document.querySelector("#popup button[onclick='replayLevel()']");
-let home=document.querySelector("#popup button[onclick='goHome()']");
-
+let next=document.querySelector("#popup button:nth-child(2)");
 next.style.display = success ? "inline" : "none";
-replay.style.display = "inline";
-home.style.display = "inline";
 }
 
 function showConfetti(){
@@ -154,10 +140,10 @@ let ctx=c.getContext("2d");
 c.width=window.innerWidth;
 c.height=window.innerHeight;
 
-let colors=["red","yellow","blue","green","pink","orange"];
+let colors=["red","yellow","blue","green","pink"];
 let arr=[];
 
-for(let i=0;i<120;i++){
+for(let i=0;i<100;i++){
 arr.push({x:Math.random()*c.width,y:Math.random()*c.height,color:colors[Math.random()*colors.length|0]});
 }
 
@@ -166,7 +152,7 @@ ctx.clearRect(0,0,c.width,c.height);
 arr.forEach(p=>{
 p.y+=3;
 ctx.fillStyle=p.color;
-ctx.fillRect(p.x,p.y,6,6);
+ctx.fillRect(p.x,p.y,5,5);
 });
 },20);
 
@@ -187,11 +173,14 @@ return;
 reset();
 }
 
-function replayLevel(){ reset(); }
+function replayLevel(){
+reset();
+}
 
 function reset(){
 document.getElementById("popup").style.display="none";
-document.getElementById("answer").value="";
+hintsLeft=3;
+document.getElementById("hintCount").innerText="Hints Left: 3";
 loadLevel();
 }
 
