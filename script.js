@@ -1,3 +1,4 @@
+"Welcome " + localStorage.getItem("player")
 let level = 1;
 let score = 0;
 let time = 60;
