@@ -27,7 +27,6 @@ let hintsData = [
 "Power of 3","Echo","Bank","Combine","BODMAS"
 ];
 
-// PLAYER
 document.getElementById("player").innerText =
 "Player: " + (localStorage.getItem("player") || "Guest");
 
