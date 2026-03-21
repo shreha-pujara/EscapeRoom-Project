@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Result</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="resultText">Result</h1>
+  <h2 id="finalScore">Score: 0</h2>
+
+  <br>
+
+  <button onclick="restart()">🔄 Play Again</button>
+  <button onclick="goLeaderboard()">🏆 Leaderboard</button>
+  <button onclick="goHome()">🏠 Home</button>
+</div>
+
+<script>
+
+let score = parseInt(localStorage.getItem("score")) || 0;
+let result = localStorage.getItem("result") || "Game Finished";
+let player = localStorage.getItem("player") || "Guest";
+
+// SHOW RESULT
+document.getElementById("finalScore").innerText = "Score: " + score;
+document.getElementById("resultText").innerText = result;
+
+// 🏆 SAVE TO LEADERBOARD (ONLY ONCE)
+let saved = localStorage.getItem("saved");
+
+if(!saved){
+  let board = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+  board.push({
+    name: player,
+    score: score
+  });
+
+  localStorage.setItem("leaderboard", JSON.stringify(board));
+  localStorage.setItem("saved", "true");
+}
+
+// 🔄 PLAY AGAIN
+function restart(){
+  localStorage.removeItem("score");
+  localStorage.removeItem("result");
+  localStorage.removeItem("saved");
+
+  window.location.href = "index.html";
+}
+
+// 🏆 GO TO LEADERBOARD
+function goLeaderboard(){
+  window.location.href = "leaderboard.html";
+}
+
+// 🏠 HOME
+function goHome(){
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
