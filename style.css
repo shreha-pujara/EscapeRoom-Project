@@ -10,10 +10,12 @@ body {
   margin-top:80px;
 }
 
+/* HIDE GAME UI */
 .hideUI {
   display:none;
 }
 
+/* FULL SCREEN EFFECTS */
 #happyFace, #sadFace {
   position:fixed;
   top:0;
@@ -38,6 +40,7 @@ body {
   z-index:998;
 }
 
+/* POPUP */
 #popup {
   display:none;
   position:fixed;
