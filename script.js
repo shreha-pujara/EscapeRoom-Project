@@ -71,8 +71,33 @@ function startTimer(){
     }
   },1000);
 }
+let hintsData = [
+"Think silence",
+"Division concept",
+"Triangle spelling",
+"Musical instrument",
+"Simple equation",
 
-// Check
+"Add pattern",
+"Communication device",
+"Reverse word",
+"Cutting tool",
+"Square root",
+
+"Multiply pattern",
+"Divide equation",
+"Opposite meaning",
+"Postal item",
+"Percentage",
+
+"Power of 3",
+"Sound reflection",
+"Financial place",
+"Combine answers",
+"BODMAS"
+];
+
+
 function checkAnswer(){
   let ans = document.getElementById("answer").value.toLowerCase().trim();
 
