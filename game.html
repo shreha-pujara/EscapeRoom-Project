@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Escape Room</title>
+  <title>Escape Room Pro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,22 +12,26 @@
   <h3 id="question"></h3>
 
   <input type="text" id="answer" placeholder="Enter answer">
+  <br><br>
 
-<br><br>
+  <button onclick="checkAnswer()">Submit</button>
+  <button onclick="useHint()">💡 Hint</button>
 
-<button onclick="checkAnswer()">Submit</button>
-<button onclick="useHint()">💡 Hint</button>
-
-<p id="hintCount">Hints Left: 3</p>
+  <p id="hintCount">Hints Left: 3</p>
   <p id="level"></p>
   <p id="score"></p>
 </div>
 
+<!-- FULL SCREEN EFFECTS -->
 <div id="happyFace">😄</div>
 <div id="sadFace">😢</div>
 <canvas id="confetti"></canvas>
+
+<!-- SOUND -->
 <audio id="correctSound" src="correct.mp3"></audio>
 <audio id="wrongSound" src="wrong.mp3"></audio>
+
+<!-- POPUP -->
 <div id="popup">
   <h2 id="popupText"></h2>
   <button onclick="nextLevel()">▶ Next</button>
