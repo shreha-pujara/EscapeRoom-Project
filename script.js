@@ -4,7 +4,6 @@ let timer;
 let time;
 let hintsLeft = 3;
 
-// TIMER PER LEVEL
 let levelTime = [
   30,30,30,30,30,
   40,40,40,40,40,
