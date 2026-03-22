@@ -126,7 +126,7 @@ setTimeout(()=>{
 sad.style.display="none";
 showPopup(msg);
 showButtons(false);
-},3000);
+},10000);
 }
 
 function showButtons(success){
