@@ -112,7 +112,7 @@ happy.style.display="none";
 confetti.style.display="none";
 showPopup("🎉 Correct!");
 showButtons(true);
-},10000);
+},3000);
 }
 
 function failEffect(msg){
@@ -126,7 +126,7 @@ setTimeout(()=>{
 sad.style.display="none";
 showPopup(msg);
 showButtons(false);
-},10000);
+},3000);
 }
 
 function showButtons(success){
