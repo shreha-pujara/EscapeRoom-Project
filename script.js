@@ -112,7 +112,7 @@ happy.style.display="none";
 confetti.style.display="none";
 showPopup("🎉 Correct!");
 showButtons(true);
-},3000);
+},10000);
 }
 
 function failEffect(msg){
