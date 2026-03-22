@@ -70,6 +70,8 @@ This project combines **game design, UI/UX principles, and JavaScript logic** to
 👉 https://shreha-pujara.github.io/EscapeRoom-Project/
 
 ---
+## 🎨 Figma Design
+👉 https://www.figma.com/design/SRKqzTxJ3kigS0fD4aSHVG/Untitled?node-id=0-1&t=r863tEa4xq6Oohk6-1
 
 ## 📂 Project Structure
 
